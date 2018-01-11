@@ -24,21 +24,21 @@ class RoomList extends Component {
           Store the snapshot's key (snapshot.key) along with the rest of the room data.
           When rendering an array in React,
           each item should have a unique "key" prop, and the snapshot's key is ideal for that purpose. */
-          // const room = snapshot.val();
-          // room.key = snapshot.key;
-          // this.setState({ rooms: this.state.rooms.concat( room ) })
+          const room = snapshot.val();
+          room.key = snapshot.key;
+          this.setState({ rooms: this.state.rooms.concat( room ) })
 
 
-          let key = snapshot.key.toString();
-          const room = {
-            id: snapshot.key,
-            key : snapshot.val()
-          }
+          // let key = snapshot.key.toString();
+          // const room = {
+          //   id: snapshot.key,
+          //   key : snapshot.val()
+          // }
           // add the snapshots data with .val to the state rooms
           // .concat either adds items to an arrary or merges and returns a new array
-          this.setState({
-              rooms: this.state.rooms.concat( room )
-          })
+          // this.setState({
+          //     rooms: this.state.rooms.concat( room )
+          // })
         });
     }
 
@@ -48,7 +48,7 @@ class RoomList extends Component {
             {
               this.state.rooms.map(
                 (room, index) =>
-                <p>{room.key}</p>
+                <p key={room.key}>{room.name}</p>
 
             )}
           </div>
