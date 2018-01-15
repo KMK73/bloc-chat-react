@@ -40,8 +40,10 @@ class RoomList extends Component {
 
     handleSubmit(event) {
       this.roomsRef.push({
-        name: newRoomName
+        name: this.state.newRoomName
       });
+      //clear input again 
+      this.setState({newRoomName: ''});
       event.preventDefault();
     }
 
