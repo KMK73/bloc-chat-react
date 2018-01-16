@@ -40,7 +40,7 @@ class RoomList extends Component {
 
     handleSubmit(event) {
       this.roomsRef.push({
-        name: newRoomName
+        name: this.state.newRoomName
       });
       event.preventDefault();
     }
@@ -51,7 +51,7 @@ class RoomList extends Component {
             {
               this.state.rooms.map(
                 (room, index) =>
-                <p key={room.key}>{room.name}</p>
+                <p key={room.key} onClick={ (e) => {this.props.activeRoom(room)} }>{room.name}</p>
 
             )}
 
