@@ -46,14 +46,21 @@ class RoomList extends Component {
     }
 
     render() {
+      console.log(this.state.rooms.length);
+
+      const roomNodes = this.state.rooms.map(
+              (room, index) =>
+                {
+                  // if(this.props.activeRoomId === room.id){
+                  //     <p key={room.key} onClick={ (e) => {this.props.activeRoom(room)} } className="active">{room.name}</p>
+                  // }else {
+                    <p key={room.key} onClick={ (e) => {this.props.activeRoom(room)} }>{room.name}</p>
+                  //}
+                }
+        );
         return (
           <div className="">
-            {
-              this.state.rooms.map(
-                (room, index) =>
-                <p key={room.key} onClick={ (e) => {this.props.activeRoom(room)} }>{room.name}</p>
-
-            )}
+            {roomNodes}
 
             <form onSubmit={this.handleSubmit}>
               <label>
