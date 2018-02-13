@@ -51,11 +51,11 @@ class RoomList extends Component {
       const roomNodes = this.state.rooms.map(
               (room, index) =>
                 {
-                  // if(this.props.activeRoomId === room.id){
-                  //     <p key={room.key} onClick={ (e) => {this.props.activeRoom(room)} } className="active">{room.name}</p>
-                  // }else {
-                    <p key={room.key} onClick={ (e) => {this.props.activeRoom(room)} }>{room.name}</p>
-                  //}
+                  if(this.props.activeRoomId === room.id){
+                    return  <p key={room.key} onClick={ (e) => {this.props.activeRoom(room)} } className="active">{room.name}</p>
+                  }else {
+                    return <p key={room.key} onClick={ (e) => {this.props.activeRoom(room)} }>{room.name}</p>
+                  }
                 }
         );
         return (
