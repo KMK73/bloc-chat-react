@@ -21,7 +21,7 @@ class RoomList extends Component {
       //and it's called once for each object that has been added to the path
       this.roomsRef.on('child_added', (snapshot) => {
           //The snapshot includes additional metadata about the database entry as well as the actual data.
-          console.log(snapshot);
+          //console.log(snapshot);
 
           /*
           Store the snapshot's key (snapshot.key) along with the rest of the room data.
@@ -42,13 +42,11 @@ class RoomList extends Component {
       this.roomsRef.push({
         name: this.state.newRoomName
       });
-      //clear input again 
-      this.setState({newRoomName: ''});
       event.preventDefault();
     }
 
     render() {
-      console.log(this.state.rooms.length);
+      // console.log(this.state.rooms.length);
 
       const roomNodes = this.state.rooms.map(
               (room, index) =>
