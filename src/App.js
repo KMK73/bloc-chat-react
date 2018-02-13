@@ -22,7 +22,7 @@ class App extends Component {
 
         this.state = {
           activeRoom: {},
-          activeUser: ''
+          activeUser: {}
         }
 
         this.activeRoom = this.activeRoom.bind(this);
@@ -38,7 +38,7 @@ class App extends Component {
     setUser(user){
         if (user !== null){
           console.log('user', user.displayName);
-          this.setState({ activeUser: user.displayName});
+          this.setState({ activeUser: user});
         }else {
           console.log('clear user');
           this.setState({ activeUser: null});
@@ -53,7 +53,7 @@ class App extends Component {
             <User firebase={firebase}  setUser = {(user) => this.setUser(user)}  activeUser={this.state.activeUser} />
           </div>
           <div className="chatroom">
-            <MessageList firebase={firebase} activeRoom={this.state.activeRoom}/>
+            <MessageList firebase={firebase} activeRoom={this.state.activeRoom} activeUser={this.state.activeUser}/>
           </div>
         </div>
       );

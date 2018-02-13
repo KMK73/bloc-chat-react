@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Table, FormGroup, FormControl, Button, InputGroup} from 'react-bootstrap';
+import Moment from 'react-moment';
 
 class MessageList extends Component {
     constructor(props){
@@ -6,11 +8,15 @@ class MessageList extends Component {
 
       this.state = {
         messages: [],
+        messageContent: null,
         activeRoom: ''
       }
 
       //reference to firebase messages node
       this.messageRef = this.props.firebase.database().ref('messages');
+
+      //bind
+      this.submitMessage = this.submitMessage.bind(this);
     }
 
     componentDidMount() {
@@ -30,6 +36,31 @@ class MessageList extends Component {
       });
     }
 
+
+    submitMessage(event) {
+      console.log('message submit clicked', event);
+
+      let user = null;
+      if (this.props.activeUser) {
+        user = this.props.activeUser.displayName;
+      } else {
+        user = "Guest";
+      }
+
+      this.messageRef.push({
+        content: this.state.messageContent,
+        roomId: this.props.activeRoom.key,
+        sentAt: new Date().toLocaleString(),
+        username: user
+      });
+      event.target.reset();
+      event.preventDefault();
+    }
+
+    handleChange = (e) => {
+      this.setState({messageContent: e.target.value});
+    }
+
     render() {
       return (
         <div className="messageList">
@@ -43,10 +74,20 @@ class MessageList extends Component {
                     <p key={message.key}>{message.content}</p>
                   </div>
 
-                  <span className="timestamp">{message.sentAt}</span>
+                  <Moment fromNow className="timestamp">{message.sentAt}</Moment>
                 </div>
 
             )}
+            <form className="newMsgForm" onSubmit={this.submitMessage}>
+               <FormGroup bsSize="large">
+                 <InputGroup>
+                   <FormControl className="msgEntry" type="textarea" id="message" placeholder="Write your message here..." onChange={this.handleChange} />
+                   <InputGroup.Button>
+                     <Button className="msgSubmit" type="submit" bsSize="large">Send</Button>
+                   </InputGroup.Button>
+                 </InputGroup>
+               </FormGroup>
+             </form>
         </div>
       )
     }

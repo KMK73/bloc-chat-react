@@ -16,7 +16,7 @@ class User extends Component {
     	console.log("componentDidMount triggered");
     	//persisting login state across page refreshes or changes
         this.props.firebase.auth().onAuthStateChanged( user => {
-           console.log("auth state changed "+ user.displayName);
+           console.log("auth state changed "+ user);
            this.props.setUser(user);
 
         });
@@ -45,10 +45,16 @@ class User extends Component {
     }
 
     render() {
-
+        let displayName = null;
+         if (this.props.activeUser) {
+           displayName = <span className="username">{this.props.activeUser.displayName}</span>;
+         } else {
+           displayName =  <span className="username">Viewing as Guest</span>;
+         }
         return (
-          <div>
-            <span className="username">{this.props.activeUser ? this.props.activeUser : "Viewing as Guest"}</span>
+          <div className="userInfo">
+            {displayName}
+
             <button onClick={this.signInWithPrompt}>Sign In</button>
             <button onClick={this.logout}>Log Out</button>
           </div>
